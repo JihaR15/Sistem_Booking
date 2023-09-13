@@ -18,7 +18,7 @@ public class Booking {
         System.out.print("Berapa malam Anda ingin menginap: ");
         int perMalam = sc.nextInt();
 
-        int totalHarga = harga[pilihanKamar - 1] * perMalam;
+        int totalHarga = harga[pilihanKamar - 1] * perMalam; // -1 karna angka dimulai dari 0
         System.out.println("Total harga untuk " + kamar[pilihanKamar - 1] + " selama " + perMalam + " malam adalah Rp." + totalHarga);
 
 
