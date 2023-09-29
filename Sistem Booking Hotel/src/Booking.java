@@ -5,10 +5,20 @@ public class Booking {
 
         Scanner sc = new Scanner(System.in);
 
-        String kmr1 = "Single", kmr2 = "Double", kmr3 = "Suite", nama;
+        String kmr1 = "Single", kmr2 = "Double", kmr3 = "Suite", nama, username, password;
         int hargaKmr1 = 50000, hargaKmr2 = 80000, hargaKmr3 = 100000, perMalam;
 
-
+        System.out.println("=========== LOGIN ==========");
+        System.out.println("Username:                  ");
+        username =sc.nextLine();
+        System.out.println("Password:                  ");
+        password = sc.nextLine();
+        if (username.equals("admin") && password.equals("12345")) {
+            System.out.println("------- Login Sukses -------");
+        } else {
+            System.out.println("-------- Login Gagal -------");
+        }
+        
         System.out.println("\n====== KATEGORI KAMAR ======");
         System.out.println("| "+ kmr1 + " - Rp." + hargaKmr1 + "/malam  |");
         System.out.println("| "+ kmr2 + " - Rp." + hargaKmr2 + "/malam  |");
