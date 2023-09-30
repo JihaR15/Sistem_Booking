@@ -4,31 +4,30 @@ public class Booking {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        String kmr1 = "Single", kmr2 = "Double", kmr3 = "Suite", nama, username, password;
-        int hargaKmr1 = 50000, hargaKmr2 = 80000, hargaKmr3 = 100000, perMalam;
+        String username, password;
 
         System.out.println("=========== LOGIN ==========");
-        System.out.println("Username:                  ");
+        System.out.print("Username  : ");
         username =sc.nextLine();
-        System.out.println("Password:                  ");
+        System.out.print("Password  : ");
         password = sc.nextLine();
         if (username.equals("admin") && password.equals("12345")) {
             System.out.println("------- Login Sukses -------");
-            System.out.println("\n====== KATEGORI KAMAR ======");
-            System.out.println("| "+ kmr1 + " - Rp." + hargaKmr1 + "/malam  |");
-            System.out.println("| "+ kmr2 + " - Rp." + hargaKmr2 + "/malam  |");
-            System.out.println("| "+ kmr3 + " - Rp." + hargaKmr3 + "/malam  |");
-            System.out.println("============================");
-            System.out.println("\nKamar yang anda plih yaitu: ");
-            System.out.println("1. " + kmr1 + " - Rp." + hargaKmr1 + "/malam");
-            System.out.print("\nAtas nama siapa: ");
-            nama = sc.nextLine();
-            System.out.print("Halo " + nama +", Berapa malam Anda ingin menginap: ");
-            perMalam = sc.nextInt();
-            int totalHarga = hargaKmr1 * perMalam;
-            System.out.println("Total harga untuk " + kmr1 + " selama " + perMalam + " malam adalah Rp." + totalHarga);
-            System.out.println(" ");
-
+            System.out.println("\n=========================================");
+            System.out.println("|\t       MENU UTAMA \t\t|");
+            System.out.println("=========================================");
+            System.out.print("    1. Profil User");
+            System.out.println("\t5. -");
+            System.out.print("    2. Check-In");
+            System.out.println("\t\t6. -");
+            System.out.print("    3. Check-Out");
+            System.out.println("\t7. Logout");
+            System.out.print("    4. -");
+            System.out.println("\t\t8. Tutup Program");
+            System.out.println("=========================================");
+            System.out.print("Silahkan pilih menu (1-8)     : ");
+            int menu = sc.nextInt();
+            // dikarenakan belum boleh if level 2 jadi dipisah filenya, di MenuUtama.java
         } else {
             System.out.println("-------- Login Gagal -------");
 
