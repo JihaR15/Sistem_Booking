@@ -4,9 +4,9 @@ FITUR :
 2. Check in
 3. Check out
 4. Detail Kamar
-5. Daftar tamu yang menginap
-6. Laporan booking bulanan
-7. Pembayaran
+5. Hotel info
+6. Fasilitas
+7. Laporan Booking Bulanan (Karyawan/Staff)
 8. Logout
 9. Tutup Program
 
