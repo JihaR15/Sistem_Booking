@@ -5,13 +5,15 @@ public class Booking {
 
         Scanner sc = new Scanner(System.in);
         String username, password;
-
+        boolean login = false;
+        while (login == false) {
         System.out.println("=========== LOGIN ==========");
         System.out.print("Username  : ");
         username =sc.nextLine();
         System.out.print("Password  : ");
         password = sc.nextLine();
-        if (username.equals("admin") && password.equals("admin")) {
+        if (username.equals("admin")) {
+            if (password.equals("admin")){
             System.out.println("------- Selamat Datang, " + username + "! -------");
             System.out.println("\n=================================================");
             System.out.println("\t\t    ADMIN MENU \t\t");
@@ -71,8 +73,11 @@ public class Booking {
                 default:
                     break;
             }
-            
-        }else if ((username.equals("customer")) && (password.equals("customer1"))) {
+            }else{
+                System.out.println("=== Password Admin Salah ===");
+            }
+        }else if ((username.equals("customer"))) {
+            if (password.equals("customer1")) {
             System.out.println("------- Selamat Datang, " + username + "! -------");
              System.out.println("\n=================================================");
              System.out.println("\t\t    MENU \t\t");
@@ -150,10 +155,17 @@ public class Booking {
                      break;
              }
              
+            }else{
+                System.out.println("== Password Customer Salah");
+            }
+            
         }else {
-            System.out.println("-------- Login Gagal -------");
+            System.out.println("Username dan Password Anda Salah");
+            System.out.println("Silahkan Coba Lagi!");
 
         }
+        }
+       
         
        sc.close();
     }
