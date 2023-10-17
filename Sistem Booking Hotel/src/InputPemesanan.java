@@ -2,7 +2,7 @@ import java.util.Scanner;
 public class InputPemesanan {
            public static void main(String[] args) {
               String nama, nomerTelp, tipeKamar, kmr1 = "standard", kmr2 = "deluxe", kmr3 = "suite", pilKonfirmasi;
-               int jumlahOrg, jumlahKmr, perMalam,totalHarga, hargaKmr1 = 50000, hargaKmr2 = 80000, hargaKmr3 = 100000;
+               int jumlahOrg, total,  jumlahKmr, perMalam,totalHarga, hargaKmr1 = 50000, hargaKmr2 = 80000, hargaKmr3 = 100000;
                boolean isConfirmed;
                Scanner scanner = new Scanner(System.in);
        
@@ -26,24 +26,27 @@ public class InputPemesanan {
                System.out.println("============================");
                System.out.println("Pilih tipe kamar (standard/deluxe/suite): ");
                 tipeKamar = scanner.nextLine();
+                
                 switch (tipeKamar) {
                    case "standard":
                        totalHarga =   hargaKmr1 * perMalam;
-                       int total = totalHarga * jumlahKmr;
+                       total = totalHarga * jumlahKmr;
                        System.out.println("Total harga untuk " + kmr1 + " selama " + perMalam + " jumlah kamar " + jumlahKmr +" adalah  Rp." + total);
                        break;
                    case "deluxe":
                        totalHarga =   hargaKmr2 * perMalam;
-                       System.out.println("Total harga untuk " + kmr1 + " selama " + perMalam + " malam adalah Rp." + totalHarga);
+                       total = totalHarga * jumlahKmr;
+                       System.out.println("Total harga untuk " + kmr2 + " selama " + perMalam + " jumlah kamar " + jumlahKmr +" adalah  Rp." + total);
                        break;
                    case "suite":
                        totalHarga =   hargaKmr3 * perMalam;
-                       System.out.println("Total harga untuk " + kmr1 + " selama " + perMalam + " malam adalah Rp." + totalHarga);
+                        total = totalHarga * jumlahKmr;
+                       System.out.println("Total harga untuk " + kmr3 + " selama " + perMalam + " jumlah kamar " + jumlahKmr +" adalah  Rp." + total);
                        break;
                    default:
                        break;
                }
-   
+               
                System.out.println("\nRincian Reservasi:");
                System.out.print("Apakah Anda ingin mengkonfirmasi reservasi ini? (ya/tidak): ");
                pilKonfirmasi = scanner.nextLine();
