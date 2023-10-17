@@ -107,28 +107,42 @@ public class Booking {
                      System.out.println("=================================================");
                      System.out.println("\t\t  Pemesanan Kamar \t\t");
                      System.out.println("=================================================");
-                     String[] kamar = {"Single", "Double", "Suite"};
-                     int[] harga = {50000, 80000, 150000};
-             
-                     System.out.println("Silakan pilih jenis kamar yang ingin Anda pesan:");
-                     System.out.println("1. " + kamar[0] + " - Rp." + harga[0] + "/malam");
-                     System.out.println("2. " + kamar[1] + " - Rp." + harga[1] + "/malam");
-                     System.out.println("3. " + kamar[2] + " - Rp." + harga[2] + "/malam");
-             
-                     System.out.print("Pilihan Anda (1/2/3): ");
-                     int pilihanKamar = sc.nextInt();
-             
-                     if (pilihanKamar < 1 || pilihanKamar > 3) {
-                         System.out.println("Pilihan tidak valid. Harap pilih antara 1, 2, atau 3.");
-                         break;
-                     }
-             
-                     System.out.print("Berapa malam Anda ingin menginap: ");
-                     int perMalam = sc.nextInt();
-             
-                     int totalPrice = harga[pilihanKamar - 1] * perMalam;
-                     System.out.println("Total harga untuk " + kamar[pilihanKamar - 1] + " selama " + perMalam + " malam adalah Rp." + totalPrice);
-             
+                   
+        String kmr1 = "Single", kmr2 = "Double", kmr3 = "Suite", nama;
+        int hargaKmr1 = 50000, hargaKmr2 = 80000, hargaKmr3 = 100000, perMalam, pilihanKamar;
+        System.out.println("\n====== KATEGORI KAMAR ======");
+        System.out.println("|1. "+ kmr1 + " - Rp." + hargaKmr1 + "/malam  |");
+        System.out.println("|2. "+ kmr2 + " - Rp." + hargaKmr2 + "/malam  |");
+        System.out.println("|3. "+ kmr3 + " - Rp." + hargaKmr3 + "/malam  |");
+        System.out.println("============================");
+
+
+        System.out.println("\nKamar yang anda plih yaitu: ");
+        pilihanKamar = sc.nextInt();
+
+
+        if (pilihanKamar <= 3) {
+            if (pilihanKamar == 1)
+        System.out.println("1. " + kmr1 + " - Rp." + hargaKmr1 + "/malam");
+            else if (pilihanKamar == 2)
+            System.out.println("2. " + kmr2 + " - Rp." + hargaKmr2 + "/malam");
+            else 
+            System.out.println("3. " + kmr3 + " - Rp." + hargaKmr3 + "/malam");
+        } else 
+            System.out.println("Pilihan Anda Tidak Sesuai");
+        System.out.print("\nAtas nama siapa: ");
+        nama = sc.next();
+        System.out.print("Halo " + nama +", Berapa malam Anda ingin menginap: ");
+        perMalam = sc.nextInt();
+        if (pilihanKamar <= 3) {
+            if (pilihanKamar == 1)
+            System.out.println("Total harga untuk " + kmr1 + " selama " + perMalam + " malam adalah Rp." + hargaKmr1 * perMalam);
+            else if (pilihanKamar == 2)
+            System.out.println("Total harga untuk " + kmr2 + " selama " + perMalam + " malam adalah Rp." + hargaKmr2 * perMalam);
+            else 
+            System.out.println("Total harga untuk " + kmr3 + " selama " + perMalam + " malam adalah Rp." + hargaKmr3 * perMalam);
+        } else
+        System.out.println(" ");
                      break;
                      
                  case 4:
@@ -170,3 +184,4 @@ public class Booking {
        sc.close();
     }
 }
+
