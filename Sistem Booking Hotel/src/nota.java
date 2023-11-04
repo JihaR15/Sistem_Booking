@@ -150,8 +150,8 @@ public class nota {
                     System.out.print("Silahkan pilih menu (1-7)     : ");
                     int menu = sc.nextInt();
                     // data
-            int pilihanKamar;
-int perMalam;
+            int pilihanKamar = 0;
+int perMalam = 0;
 int totalPrice;
                     switch (menu) {
 
@@ -265,7 +265,7 @@ int totalPrice;
                 System.out.println("Kembalian Anda: " +kembalian);
             } else if (membayar - bayar < 0) {
                 System.out.println("Uang Anda Kurang");
-                System.out.println("Silahkan Bayar Dengan Tepat");
+                System.out.println("Silahkan Bayar Dengan");
             }
                                 break;
                         case 5:
@@ -296,6 +296,8 @@ int totalPrice;
         sclogin.close();
         sc.close();
         
-}
+    
+    }
+
 
     
