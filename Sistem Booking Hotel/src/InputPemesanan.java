@@ -4,20 +4,20 @@ public class InputPemesanan {
               String nama, nomerTelp, tipeKamar, kmr1 = "standard", kmr2 = "deluxe", kmr3 = "suite", pilKonfirmasi;
                int jumlahOrg, total,  jumlahKmr, perMalam,totalHarga, hargaKmr1 = 50000, hargaKmr2 = 80000, hargaKmr3 = 100000;
                boolean isConfirmed;
-               Scanner scanner = new Scanner(System.in);
+               Scanner sc = new Scanner(System.in);
        
                System.out.println("Selamat datang di hotel kami!");
                System.out.print("Masukkan nama Anda                : ");
-               nama = scanner.nextLine();
+               nama = sc.nextLine();
                System.out.print("Masukkan nomor telepon Anda       : ");
-               nomerTelp = scanner.nextLine();
+               nomerTelp = sc.nextLine();
                System.out.print("Masukkan jumlah orang             : ");
-               jumlahOrg = scanner.nextInt();
+               jumlahOrg = sc.nextInt();
                System.out.print("Masukkan jumlah malam             : ");
-               perMalam = scanner.nextInt();
+               perMalam = sc.nextInt();
                System.out.print("Masukkan jumlah kamar yang dipesan: ");
-               jumlahKmr = scanner.nextInt();
-               scanner.nextLine();
+               jumlahKmr = sc.nextInt();
+               sc.nextLine();
 
                System.out.println("\n====== KATEGORI KAMAR ======");
                System.out.println("| "+ kmr1 + " - Rp." + hargaKmr1 + "/malam  |");
@@ -25,7 +25,7 @@ public class InputPemesanan {
                System.out.println("| "+ kmr3 + " - Rp." + hargaKmr3 + "/malam  |");
                System.out.println("============================");
                System.out.println("Pilih tipe kamar (standard/deluxe/suite): ");
-                tipeKamar = scanner.nextLine();
+                tipeKamar = sc.nextLine();
                 
                 switch (tipeKamar) {
                    case "standard":
@@ -49,7 +49,7 @@ public class InputPemesanan {
                
                System.out.println("\nRincian Reservasi:");
                System.out.print("Apakah Anda ingin mengkonfirmasi reservasi ini? (ya/tidak): ");
-               pilKonfirmasi = scanner.nextLine();
+               pilKonfirmasi = sc.nextLine();
        
                if (pilKonfirmasi.equalsIgnoreCase("ya")) {
                    
@@ -59,7 +59,7 @@ public class InputPemesanan {
                }
        
                System.out.println("\nTerima kasih telah reservasi di hotel kami!");
-               scanner.close();
+               sc.close();
            }
   }     
    
