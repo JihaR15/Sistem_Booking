@@ -384,13 +384,12 @@ public class Booking {
                         }
 
                     }
-
                 }
-                System.out.println("Username dan Password Anda Salah");
-                System.out.println("Silahkan Coba Lagi!");
             }
-            sc.close();
-            sclogin.close();
+            
+            System.out.println("Username dan Password Anda Salah");
+            System.out.println("Silahkan Coba Lagi!");
+
         }
     }
 }
