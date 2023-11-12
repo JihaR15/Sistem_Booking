@@ -107,7 +107,9 @@ public class Booking {
                                         System.out.println("Nama \t\t: " + nama[0][i]);
                                         System.out.println("Login pada \t: " + tanggal);
                                         System.out.println("Waktu login \t: " + waktu);
-                                        System.out.print("Apakah anda ingin kembali ke menu ? (y) : ");
+                                        System.out.println("=================================================");
+
+                                        System.out.print("\nApakah anda ingin kembali ke menu ? (y) : ");
                                         String kembali = sc.next();
                                         if (kembali.equalsIgnoreCase("y")) {
                                             break;
@@ -131,7 +133,6 @@ public class Booking {
                                     System.out.println("\t\t  Pemesanan Kamar \t\t");
                                     System.out.println("=================================================");
 
-                                    System.out.println("============= KATEGORI KAMAR =============");
                                     for (int j = 0; j < tipeKamar.length; j++) {
                                         System.out.println((j + 1) + ". " + tipeKamar[j] + " = " + "Rp. "
                                                 + hargaKamar[j] + "/ malam, "
@@ -179,7 +180,7 @@ public class Booking {
                                         }
                                         bayar = totalHarga - diskon;
 
-                                        System.out.println("Apakah anda ingin mencetak nota ? (y/t)");
+                                        System.out.print("Apakah anda ingin mencetak nota ? (y/t)");
                                         cetakNota = sc.nextLine();
                                         if (cetakNota.equals("y")) {
                                             System.out.println(
@@ -211,7 +212,7 @@ public class Booking {
 
                                         while (true) {
 
-                                            System.out.println("\nApakah Anda Ingin Memesan Lagi? (y/t)");
+                                            System.out.print("\nApakah Anda Ingin Memesan Lagi? (y/t)");
                                             pesanKembali = sc.nextLine();
                                             if (pesanKembali.equalsIgnoreCase("y")) {
                                                 return;
@@ -229,22 +230,19 @@ public class Booking {
                                     System.out.println("\n=================================================");
                                     System.out.println("\t\t  Histori Pemesanan \t\t");
                                     System.out.println("=================================================");
-                                    if (bookingCount == 0) {
-                                        System.out.println("Belum ada pemesanan yang dilakukan");
-                                        
-                                    } else if (bookingCount > 0) {
-
-                                        for (int j = 0; j < args.length; j++) {
-                                            System.out.println("Nama: " + namaCustomer[j]);
-                                            System.out.println("Tipe Kamar: " + tipeKamarBooked[j]);
-                                            System.out.println("Malam menginap: " + malamBooking[j]);
-                                            System.out.println("waktu pemesanan\t: " + waktu + " pada tgl " + tanggal);
-                                            System.out.println("Status pelanggan\t: " + statusCustomerBooked[j]);
-                                            System.out.println("Total Harga\t: " + totalHargaBooked[j]);
-                                            System.out.println("Diskon\t\t: " + diskonBooked[j]);
-                                            System.out.println("Bayar\t\t: " + bayarBooked[j]);
+                                    
+                                        for (int j = 0; j < bookingCount; j++) {
+                                            System.out.println("No.             : " + (j + 1));
+                                            System.out.println("Nama            : " + namaCustomer[j]);
+                                            System.out.println("Tipe Kamar      : " + tipeKamarBooked[j]);
+                                            System.out.println("Malam menginap  : " + malamBooking[j]);
+                                            System.out.println("waktu pemesanan : " + waktu + " pada tgl " + tanggal);
+                                            System.out.println("Status pelanggan: " + statusCustomerBooked[j]);
+                                            System.out.println("Total Harga     : " + totalHargaBooked[j]);
+                                            System.out.println("Diskon          : " + diskonBooked[j]);
+                                            System.out.println("Bayar           : " + bayarBooked[j]);
                                             System.out.println("==========================");
-                                        }
+                                        
 
                                     }
 
