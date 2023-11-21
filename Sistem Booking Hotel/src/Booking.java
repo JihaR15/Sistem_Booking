@@ -41,6 +41,8 @@ public class Booking {
     static String statusBayar = "Belum Terbayar";
 
     static String username, password, namacust;
+    static String customerName;
+    
 
     public static void main(String[] args) {
 
@@ -149,7 +151,7 @@ public class Booking {
                                         int indexKamar = pilihKamar - 1;
 
                                         System.out.print("Masukkan nama Anda: ");
-                                        String customerName = sc.next();
+                                        customerName = sc.next();
 
                                         System.out.print("Masukkan jumlah malam : ");
                                         perMalam = sc.nextInt();
@@ -376,7 +378,7 @@ public class Booking {
                                         int indexKamar = pilihKamar - 1;
 
                                         System.out.print("Masukkan nama Anda: ");
-                                        String customerName = sc.next();
+                                        customerName = sc.next();
 
                                         System.out.print("Masukkan jumlah malam : ");
                                         perMalam = sc.nextInt();
@@ -456,9 +458,36 @@ public class Booking {
                                         break;
 
                                 case 4:
-                                    System.out.println("=================================================");
-                                    System.out.println("\t\t  Pembayaran \t\t");
-                                    System.out.println("=================================================");
+                                int membayar=0;
+                                     
+
+
+                                System.out.println(
+                                               "\n======================= NOTA PEMESANAN =======================");
+                                       System.out.println("Tanggal Pembayaran              : " + date.toString());
+                                       System.out.println("Nama Anda                       : " + customerName);
+                                       System.out.println("Tipe Kamar yang Anda Pilih      : " + pilihKamar);
+                                       System.out.println("Lama Menginap                   : " + perMalam);
+                                       System.out.println("Status Pelanggan                : " + statusCust);
+                                       System.out.println("Total Harga                     : " + totalHarga);
+                                       System.out.println("Diskon Anda Menginap            : " + diskon);
+                                       System.out.println("Anda harus membayar             : " + bayar);
+                                       System.out.println("Status Pembayaran Anda          : " + statusBayar);
+                                       System.out.println(
+                                               "===============================================================");
+                                          System.out.println("Tagihan Anda Sebesar        : " + bayar);
+                                       System.out.println("Masukkan Uang Anda : ");
+                                       membayar = sc.nextInt();
+
+                                       if (membayar == bayar) {
+                                          System.out.println("Tagihan Anda Sudah Lunas Selamat Menginap");
+                                       } else if (membayar < bayar) {
+                                          System.out.println("Maaf Uang Anda Kurang Sebesar : " + (bayar - membayar));
+                                       } else if (membayar > bayar) {
+                                          System.out.println("Tagihan Anda Sudah Lunas");
+                                          System.out.println("Kembalian Anda Sebesar : " + (membayar - bayar));
+                                       } else 
+                                          System.out.println("Anda Masih Mempunyai Tagihan Yang Belum Dibayar");
                                     break;
                                 case 5:
                                     System.out.println("\n=================================================");
