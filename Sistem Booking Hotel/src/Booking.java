@@ -41,6 +41,8 @@ public class Booking {
     static String statusBayar = "Belum Terbayar";
 
     static String username, password, namacust;
+    static String customerName;
+    
 
     public static void main(String[] args) {
 
@@ -179,7 +181,7 @@ public class Booking {
                                     if (pilihKamar >= 1 && pilihKamar <= tipeKamar.length) {
                                         int indexKamar = pilihKamar - 1;
 
-                                        System.out.print("Masukkan nama Anda    : ");
+                                        System.out.print("Masukkan nama Anda: ");
                                         String customerName = sc.next();
 
                                         System.out.print("Masukkan jumlah malam : ");
@@ -228,6 +230,15 @@ public class Booking {
                                             System.out.println(
                                                     "===============================================================");
                                         }
+                                        System.out.print("Apakah Anda ingin mengkonfirmasi reservasi ini? (ya/tidak): ");
+                                        String pilKonfirmasi = sc.nextLine();
+                                         if (pilKonfirmasi.equalsIgnoreCase("ya")) {
+                                             System.out.println("Reservasi telah dikonfirmasi.");
+                                         } else {
+                                             System.out.println("Reservasi tidak dikonfirmasi.");
+                                         }
+                                         System.out.println("Terima kasih telah reservasi di hotel kami!");
+
                                         System.out.println("Silahkan membayar di menu pembayaran.");
 
                                         kamarTersedia[indexKamar]--;
@@ -242,20 +253,6 @@ public class Booking {
                                         bayarBooked[bookingCount] = bayar;
                                         bookingCount++;
 
-                                        while (true) {
-
-                                            System.out.print("\nApakah Anda Ingin Memesan Lagi? (y/t)");
-                                            pesanKembali = sc.nextLine();
-                                            if (pesanKembali.equalsIgnoreCase("y")) {
-                                                return;
-                                            } else if (pesanKembali.equalsIgnoreCase("t")) {
-                                                System.out.println("Terima Kasih sudah memesan!");
-                                                break;
-                                            } else {
-                                                System.out.println("input tidak sesuai");
-
-                                            }
-                                        }
                                     }
                                     break;
                                 case 5:
@@ -324,8 +321,22 @@ public class Booking {
                                         System.out.println("Uang yang anda masukkan kurang");
                                         
                                     }
+                                    while (true) {
+                                            System.out.print("\nApakah Anda Ingin Memesan Lagi? (y/t)");
+                                            pesanKembali = sc.next();
+                                            if (pesanKembali.equalsIgnoreCase("y")) {
+                                                break;
+                                            } else if (pesanKembali.equalsIgnoreCase("t")) {
+                                                System.out.println("Terima Kasih sudah memesan!");
+                                                break;
+                                            } else {
+                                                System.out.println("input tidak sesuai");
+
+                                            }
+                                        }
                                     
                                 }
+                                
                                 break;
                                 case 7:
                                     System.out.println("Anda Telah Log-Out");
@@ -428,7 +439,7 @@ public class Booking {
                                         int indexKamar = pilihKamar - 1;
 
                                         System.out.print("Masukkan nama Anda: ");
-                                        String customerName = sc.next();
+                                        customerName = sc.next();
 
                                         System.out.print("Masukkan jumlah malam : ");
                                         perMalam = sc.nextInt();
@@ -511,34 +522,6 @@ public class Booking {
                                     System.out.println("=================================================");
                                     System.out.println("\t\t  Pembayaran \t\t");
                                     System.out.println("=================================================");
-                                    if (bookingCount == 0) {
-                                        System.out.println("Belum ada pemesanan.");
-                                    }
-
-
-                                    for (int k = 0; k < bookingCount; k++) {
-                                    if (bayarBooked[k] == 0) {
-                                        System.out.println("Belum ada pemesanan.");
-                                        break;
-                                    }
-                                    System.out.println("Anda harus membayar : " + bayarBooked[k]);
-                                    System.out.print("Masukkan Nominal yang ingin dibayarkan : ");
-                                    int bayarTunai = sc.nextInt();
-                                    if (bayarTunai >= bayarBooked[k]) {
-                                        double kembalian = bayarTunai - bayarBooked[k];
-                                        System.out.println("Kembalian : " + kembalian);
-                                        System.out.println("Terima kasih telah membayar");
-                                        statusBayar = "Terbayar";  
-                                        bayarBooked[k] = 0;                                     
-                                        kembalian = 0;                      
-                                        
-                                    } else {
-                                        System.out.println("Uang yang anda masukkan kurang");
-                                        
-                                    }
-                                    
-                                }
-                                
                                     break;
                                 case 5:
                                     System.out.println("\n=================================================");
