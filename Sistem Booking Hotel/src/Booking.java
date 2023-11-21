@@ -460,7 +460,8 @@ public class Booking {
                                 case 4:
                                 int membayar=0;
                                      
-
+                                    if (perMalam >= 1) 
+                                    do {
 
                                 System.out.println(
                                                "\n======================= NOTA PEMESANAN =======================");
@@ -488,6 +489,18 @@ public class Booking {
                                           System.out.println("Kembalian Anda Sebesar : " + (membayar - bayar));
                                        } else 
                                           System.out.println("Anda Masih Mempunyai Tagihan Yang Belum Dibayar");
+                                    } while (membayar != bayar);
+                                    else {
+                                        System.out.println("Anda Belum Memesan Kamar");}
+
+                                        System.out.print("\nApakah anda ingin kembali ke menu ? (y) : ");
+                                        kembali = sc.next();
+                                        if (kembali.equalsIgnoreCase("y")) {
+                                            break;
+                                        } else {
+                                            System.out.println("input tidak sesuai");
+                                        } 
+                                    
                                     break;
                                 case 5:
                                     System.out.println("\n=================================================");
