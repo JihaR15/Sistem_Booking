@@ -489,7 +489,7 @@ public class Booking {
                                           System.out.println("Kembalian Anda Sebesar : " + (membayar - bayar));
                                        } else 
                                           System.out.println("Anda Masih Mempunyai Tagihan Yang Belum Dibayar");
-                                    } while (membayar != bayar);
+                                    } while (membayar <= bayar);
                                     else {
                                         System.out.println("Anda Belum Memesan Kamar");}
 
