@@ -197,6 +197,15 @@ public class Booking {
                                             System.out.println(
                                                     "===============================================================");
                                         }
+                                        System.out.print("Apakah Anda ingin mengkonfirmasi reservasi ini? (ya/tidak): ");
+                                        String pilKonfirmasi = sc.nextLine();
+                                         if (pilKonfirmasi.equalsIgnoreCase("ya")) {
+                                             System.out.println("Reservasi telah dikonfirmasi.");
+                                         } else {
+                                             System.out.println("Reservasi tidak dikonfirmasi.");
+                                         }
+                                         System.out.println("Terima kasih telah reservasi di hotel kami!");
+
                                         System.out.println("Silahkan membayar di menu pembayaran.");
 
                                         kamarTersedia[indexKamar]--;
@@ -211,20 +220,6 @@ public class Booking {
                                         bayarBooked[bookingCount] = bayar;
                                         bookingCount++;
 
-                                        while (true) {
-
-                                            System.out.print("\nApakah Anda Ingin Memesan Lagi? (y/t)");
-                                            pesanKembali = sc.nextLine();
-                                            if (pesanKembali.equalsIgnoreCase("y")) {
-                                                return;
-                                            } else if (pesanKembali.equalsIgnoreCase("t")) {
-                                                System.out.println("Terima Kasih sudah memesan!");
-                                                break;
-                                            } else {
-                                                System.out.println("input tidak sesuai");
-
-                                            }
-                                        }
                                     }
                                     break;
                                 case 5:
@@ -293,8 +288,22 @@ public class Booking {
                                         System.out.println("Uang yang anda masukkan kurang");
                                         
                                     }
+                                    while (true) {
+                                            System.out.print("\nApakah Anda Ingin Memesan Lagi? (y/t)");
+                                            pesanKembali = sc.next();
+                                            if (pesanKembali.equalsIgnoreCase("y")) {
+                                                break;
+                                            } else if (pesanKembali.equalsIgnoreCase("t")) {
+                                                System.out.println("Terima Kasih sudah memesan!");
+                                                break;
+                                            } else {
+                                                System.out.println("input tidak sesuai");
+
+                                            }
+                                        }
                                     
                                 }
+                                
                                 break;
                                 case 7:
                                     System.out.println("Anda Telah Log-Out");
