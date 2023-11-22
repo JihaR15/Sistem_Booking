@@ -45,7 +45,6 @@ public class Booking {
     static String customerName;
 
     public static void main(String[] args) {
-        
 
         // userAdm = admin
         user[0][0] = "admin1"; // username admin
@@ -253,7 +252,7 @@ public class Booking {
                                             totalHargaBooked[bookingCount] = totalHarga;
                                             diskonBooked[bookingCount] = diskon;
                                             bayarBooked[bookingCount] = bayar;
-                                            
+
                                             statusBayarBooked[bookingCount] = statusBayar;
                                             bookingCount++;
 
@@ -322,12 +321,13 @@ public class Booking {
                                             double kembalian = bayarTunai - bayarBooked[j];
                                             System.out.println("Kembalian : " + kembalian);
                                             System.out.println("Terima kasih telah membayar");
-                                            statusBayar = true ;
+                                            statusBayar = true;
                                             bayarBooked[j] = 0;
                                             kembalian = 0;
 
                                         } else {
                                             System.out.println("Uang yang anda masukkan kurang");
+                                            break;
 
                                         }
                                         while (true) {
@@ -502,23 +502,23 @@ public class Booking {
                                         String pilKonfirmasi = sc.nextLine();
                                         if (pilKonfirmasi.equalsIgnoreCase("ya")) {
                                             System.out.println("Reservasi telah dikonfirmasi.");
+                                            kamarTersedia[indexKamar]--;
+
+                                            // Simpan info pemesanan
+                                            namaCustomer[bookingCount] = customerName;
+                                            tipeKamarBooked[bookingCount] = tipeKamar[indexKamar];
+                                            malamBooking[bookingCount] = perMalam;
+                                            statusCustomerBooked[bookingCount] = statusCust;
+                                            totalHargaBooked[bookingCount] = totalHarga;
+                                            diskonBooked[bookingCount] = diskon;
+                                            bayarBooked[bookingCount] = bayar;
+                                            bookingCount++;
+
                                         } else {
                                             System.out.println("Reservasi tidak dikonfirmasi.");
                                         }
                                         System.out.println("Terima kasih telah reservasi di hotel kami!");
                                         System.out.println("Silahkan membayar di menu pembayaran.");
-
-                                        kamarTersedia[indexKamar]--;
-
-                                        // Simpan info pemesanan
-                                        namaCustomer[bookingCount] = customerName;
-                                        tipeKamarBooked[bookingCount] = tipeKamar[indexKamar];
-                                        malamBooking[bookingCount] = perMalam;
-                                        statusCustomerBooked[bookingCount] = statusCust;
-                                        totalHargaBooked[bookingCount] = totalHarga;
-                                        diskonBooked[bookingCount] = diskon;
-                                        bayarBooked[bookingCount] = bayar;
-                                        bookingCount++;
 
                                     }
                                     break;
@@ -558,7 +558,7 @@ public class Booking {
                                                 System.out.println("Kembalian Anda Sebesar : " + (membayar - bayar));
                                             } else
                                                 System.out.println("Anda Masih Mempunyai Tagihan Yang Belum Dibayar");
-                                        } while (membayar <= bayar);
+                                        } while (membayar < bayar);
                                     else {
                                         System.out.println("Anda Belum Memesan Kamar");
                                     }
