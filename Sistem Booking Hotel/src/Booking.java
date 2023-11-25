@@ -49,7 +49,7 @@ public class Booking {
 
     public static void main(String[] args) {
 
-        // userAdm = admin
+        // userAdm = admin dari indeks 0 - 4
         user[0][0] = "admin1"; // username admin
         user[0][1] = "admin2";
 
@@ -102,7 +102,6 @@ public class Booking {
                             sc.nextLine();
                             switch (menu) {
                                 case 1:
-                                    while (true) {
                                         System.out.println("=================================================");
                                         System.out.println("\t\t Informasi Login \t\t");
                                         System.out.println("=================================================");
@@ -111,8 +110,8 @@ public class Booking {
                                         System.out.println("Login pada \t: " + tanggal);
                                         System.out.println("Waktu login \t: " + waktu);
                                         System.out.println("=================================================");
-
-                                        System.out.print("\nApakah anda ingin kembali ke menu ? (y) : ");
+                                    while (true) {
+                                        System.out.print("Apakah anda ingin kembali ke menu ? (y) : ");
                                         String kembali = sc.next();
                                         if (kembali.equalsIgnoreCase("y")) {
                                             break;
@@ -127,8 +126,9 @@ public class Booking {
                                     System.out.println("\t     Cek Ketersediaan Kamar \t\t");
                                     System.out.println("=================================================");
                                     for (int k = 0; k < tipeKamar.length; k++) {
-                                        System.out.println((k + 1) + ". " + tipeKamar[k] + "\t: " + kamarTersedia[k]
-                                                + " kamar tersedia");
+                                        System.out
+                                                .println("[" + (k + 1) + "] " + tipeKamar[k] + "\t: " + kamarTersedia[k]
+                                                        + " kamar tersedia");
                                     }
                                     System.out.println("=================================================");
                                     System.out.println("Untuk Melihat Informasi Kamar... (0 untuk kembali)");
@@ -145,7 +145,7 @@ public class Booking {
                                             System.out.println("                Informasi Kamar  ");
                                             System.out.println("=================================================");
                                             System.out.println("Tipe Kamar \t: " + tipeKamar[k]);
-                                            System.out.println("Harga Kamar \t: " + hargaKamar[k]);
+                                            System.out.println("Harga Kamar \t: Rp." + hargaKamar[k] + " / malam");
                                             System.out.println("Ketersediaan \t: " + kamarTersedia[k]);
                                             System.out.println("-----------------------------------------");
                                             System.out.println("|\t\tFasilitas\t\t|");
@@ -157,12 +157,15 @@ public class Booking {
 
                                         }
                                     }
-                                    System.out.print("Apakah anda ingin kembali ke menu? (y) : ");
-                                    String kembali = sc.next();
-                                    if (kembali.equalsIgnoreCase("y")) {
-                                        break;
-                                    } else {
-                                        System.out.println("input tidak sesuai");
+                                    while (true) {
+                                        System.out.print("Apakah anda ingin kembali ke menu? (y) : ");
+                                        String kembali = sc.next();
+                                        if (kembali.equalsIgnoreCase("y")) {
+                                            break;
+                                        } else {
+                                            System.out.println("input tidak sesuai");
+                                        }
+
                                     }
 
                                     break;
@@ -224,21 +227,21 @@ public class Booking {
                                         }
                                         bayar = totalHarga - diskon;
 
+                                        System.out.println("Total biaya Pemesanan : " + bayar);
+
                                         System.out.print("Apakah anda ingin mencetak nota ? (y/t) : ");
                                         cetakNota = sc.nextLine();
                                         if (cetakNota.equalsIgnoreCase("y")) {
-                                            System.out.println(
-                                                    "\n======================= NOTA PEMESANAN =======================");
+                                            System.out.println("\n======================= NOTA PEMESANAN =======================");
                                             System.out.println("Tanggal Pemesanan               : " + date.toString());
                                             System.out.println("Nama Anda                       : " + customerName);
-                                            System.out.println("Tipe Kamar yang Anda Pilih      : " + pilihKamar);
+                                            System.out.println("Tipe Kamar yang Anda Pilih      : " + tipeKamar[indexKamar]);
                                             System.out.println("Lama Menginap                   : " + perMalam);
                                             System.out.println("Status Pelanggan                : " + statusCust);
                                             System.out.println("Total Harga                     : " + totalHarga);
                                             System.out.println("Diskon Anda Menginap            : " + diskon);
                                             System.out.println("Anda harus membayar             : " + bayar);
-                                            System.out.println(
-                                                    "===============================================================");
+                                            System.out.println("===============================================================");
                                         }
                                         System.out
                                                 .print("Apakah Anda ingin mengkonfirmasi reservasi ini? (ya/tidak): ");
