@@ -16,9 +16,9 @@ public class Booking_Function {
     static String waktu = timeFormat.format(date);
 
     // user, pw sama nama
-    static String[][] user = new String[10][10];
-    static String[][] pass = new String[10][10];
-    static String[][] nama = new String[10][10];
+    static String[][] user = new String[2][50];
+    static String[][] pass = new String[2][50];
+    static String[][] nama = new String[2][50];
 
     // array dari kamar
     static String[] tipeKamar = { "Standard", "Deluxe", "Suite" };
@@ -26,7 +26,7 @@ public class Booking_Function {
             "(+ Fasilitas Standar)\n-Ruang duduk \n-peralatan elektronik tambahan \n-perlengkapan mandi lengkap",
             "(+ Fasilitas Standar & Deluxe)\n-Ruang tamu besar \t-dapur kecil \n-layanan kamar 24 jam " };
     static int[] hargaKamar = { 50000, 80000, 100000 };
-    static int[] kamarTersedia = { 10, 10, 5 };
+    static int[] kamarTersedia = { 10, 10, 1 };
     static int perMalam = 0, totalHarga = 0, inputstatusCustomer, kamar = -1;
     static double diskon = 0, bayar = 0;
     static String cetakNota, pesanKembali, statusCust;
@@ -47,12 +47,9 @@ public class Booking_Function {
 
     static String username, password, namacust, ulangiPass, newUsername, newPassword;
     static String customerName, newNama;
-    static boolean regist = true;
-    static boolean isAdmin;
-
 
     public static void main(String[] args) {
-        // userAdm = admin dari indeks 0 - 4
+        // userAdm = admin baris ke 1 (indeks 0)
         user[0][0] = "admin1"; // username admin
         user[0][1] = "admin2";
 
@@ -62,114 +59,43 @@ public class Booking_Function {
         nama[0][0] = "Alexander"; // nama admin
         nama[0][1] = "Surya";
 
-        // customer dari indeks 5 - 9
-        user[5][0] = "customer1"; // username customer
-        user[5][1] = "customer2";
+        // customer baris ke 2 (indeks 1)
+        user[1][0] = "customer1"; // username customer
+        user[1][1] = "customer2";
 
-        pass[5][0] = "customer1"; // password customer
-        pass[5][1] = "customer2";
+        pass[1][0] = "customer1"; // password customer
+        pass[1][1] = "customer2";
 
-        nama[5][0] = "Gunawan"; // nama customer
-        nama[5][1] = "Wicaksono";
+        nama[1][0] = "Gunawan"; // nama customer
+        nama[1][1] = "Wicaksono";
 
         while (true) {
-            login();
-            for (int i = 0; i < 10; i++) {
-                if (username.equals(user[0][i])) {
-                    if (password.equals(pass[0][i])) {
-                        System.out.println("-------------------------------------------------");
-                        System.out.println("    ------- Selamat Datang, " + username + "! -------");
-                        while (true) {
-                            adminMenu();
-                            switch (menu) {
-                                case 1:
-                                    infoLogin(i);
-                                    kembali();
-                                    break;
-                                case 2:
-                                    ketersediaanKamar();
-                                    break;
-                                case 3:
-                                    System.out.println("=================================================");
-                                    System.out.println("\t\t  Input Kamar Baru \t\t");
-                                    System.out.println("=================================================");
-                                    break;
-                                case 4:
-                                    pemesananKamar();
-                                    break;
-                                case 5:
-                                    historiPemesanan();
-                                    kembali();
-                                    break;
-                                case 6:
-                                    pembayaran();
-                                    kembali();
-                                    break;
-                                case 7:
-                                    System.out.println("Anda Telah Log-Out");
-                                    main(args);
-                                    break;
-                                case 8:
-                                    System.out.println("\nTerima Kasih telah menggunakan layanan kami!\n");
-                                    System.exit(0);
-                            }
-                        }
-                    } else {
-                        System.out.println("=== Password Salah ===");
-                    }
-                }
-            }
+            System.out.println("\n=================================================");
+            System.out.println("|\t    Selamat Datang Di Hotel 1C   \t|");
+            System.out.println("=================================================");
+            System.out.println("| \t\t (1) Login \t\t\t|");
+            System.out.println("| \t\t (2) Register\t\t\t|");
+            System.out.println("| \t\t (3) Exit\t\t\t|");
+            System.out.println("=================================================");
+            System.out.print("Silahkan pilih menu (1-3)\t: ");
+            int menu = sc.nextInt();
 
-            for (int j = 0; j < 10; j++) {
-                if ((username.equals(user[5][j]))) {
-                    if (password.equals(pass[5][j])) {
-                        System.out.println("------- Selamat Datang, " + username + "! -------");
-                        while (true) {
-                            custMenu();
-                            switch (menu) {
-                                case 1:
-                                    infoLoginCust(j);
-                                    kembali();
-                                    break;
-                                case 2:
-                                    ketersediaanKamar();
-                                    break;
-                                case 3:
-                                    pemesananKamar();
-                                    break;
-                                case 4:
-                                    pembayaran();
-                                    kembali();
-                                    break;
-                                case 5:
-                                    historiPemesanan();
-                                    kembali();
-                                    break;
-                                case 6:
-                                    System.out.println("Anda Telah Log-Out");
-                                    main(args);
-                                    break;
-                                case 7:
-                                    System.out.println("\nTerima Kasih telah menggunakan layanan kami!\n");
-                                    System.exit(0);
-                            }
-                        }
-                    } else {
-                        System.out.println("== Password Customer Salah ");
-                    }
-                }
+            switch (menu) {
+                case 1:
+                    login();
+                    break;
+                case 2:
+                    register();
+                    break;
+                case 3:
+                    System.out.println("\nTerima Kasih telah menggunakan layanan kami!\n");
+                    System.exit(0);
+                    break;
             }
-            System.out.println("Username dan Password Anda Salah");
-            System.out.println("Silahkan Coba Lagi!");
         }
     }
 
     public static void login() {
-        System.out.println("Apakah sudah mempunyai akun? \njika belum silahkan melakukan registrasi (sudah / belum)");
-        String pilih = sclogin.nextLine();
-        if (pilih.equalsIgnoreCase("belum")) {
-            register();
-        }
         System.out.println("\n=================================================");
         System.out.println("|\t\t     Login \t\t        |");
         System.out.println("=================================================");
@@ -179,65 +105,179 @@ public class Booking_Function {
 
         System.out.print("Password  \t: ");
         password = sclogin.nextLine();
+
+        if (username.equalsIgnoreCase("0") && (password.equalsIgnoreCase("0"))) {
+            return;
+        }
+
+        for (int i = 0; i < user[0].length; i++) {
+            if (username.equals(user[0][i])) {
+                if (password.equals(pass[0][i])) {
+                    System.out.println("-------------------------------------------------");
+                    System.out.println("    ------- Selamat Datang, " + username + "! -------");
+                    while (true) {
+                        adminMenu();
+                        switch (menu) {
+                            case 1:
+                                infoLogin(i);
+                                kembali();
+                                break;
+                            case 2:
+                                ketersediaanKamar();
+                                break;
+                            case 3:
+                                System.out.println("=================================================");
+                                System.out.println("\t\t  Input Kamar Baru \t\t");
+                                System.out.println("=================================================");
+                                break;
+                            case 4:
+                                pemesananKamar();
+                                break;
+                            case 5:
+                                historiPemesanan();
+                                kembali();
+                                break;
+                            case 6:
+                                pembayaran();
+                                kembali();
+                                break;
+                            case 7:
+                                System.out.println("Anda Telah Log-Out");
+                                return;
+
+                            case 8:
+                                System.out.println("\nTerima Kasih telah menggunakan layanan kami!\n");
+                                System.exit(0);
+                        }
+                    }
+                } 
+                // else {
+                //     System.out.println("=================================================");
+                //     System.out.println("            === Password Salah ===");
+                // }
+            }
+        }
+
+        for (int j = 0; j < user[1].length; j++) {
+            if ((username.equals(user[1][j]))) {
+                if (password.equals(pass[1][j])) {
+                    System.out.println("------- Selamat Datang, " + username + "! -------");
+                    while (true) {
+                        custMenu();
+                        switch (menu) {
+                            case 1:
+                                infoLoginCust(j);
+                                kembali();
+                                break;
+                            case 2:
+                                ketersediaanKamar();
+                                break;
+                            case 3:
+                                pemesananKamar();
+                                break;
+                            case 4:
+                                pembayaran();
+                                kembali();
+                                break;
+                            case 5:
+                                historiPemesanan();
+                                kembali();
+                                break;
+                            case 6:
+                                System.out.println("=== Anda Telah Log-Out ===");
+                                return;
+
+                            case 7:
+                                System.out.println("\nTerima Kasih telah menggunakan layanan kami!\n");
+                                System.exit(0);
+                        }
+                    }
+                } 
+                // else {
+                //     System.out.println("=================================================");
+                //     System.out.println("        === Password Customer Salah ===");
+                // }
+            }
+        }
+
+        System.out.println("=================================================");
+        System.out.println("  === Username & Password Anda Tidak Sesuai ===");
+        System.out.println("          === Silahkan Coba Lagi! ===");
+        System.out.println("    (Ketik 0 untuk Kembali ke Menu Utama)");
+        login();
+
     }
 
     public static void register() {
         System.out.println("\n=================================================");
         System.out.println("|\t\t     Register \t\t        |");
         System.out.println("=================================================");
-        while (regist) {
+        while (true) {
             System.out.print("Masukkan nama anda     : ");
             newNama = sclogin.nextLine();
             System.out.print("Masukkan username baru : ");
             newUsername = sclogin.nextLine();
-            for (int i = 0; i < 10; i++) {
-                if (newUsername.equals(user[0][i])) {
+
+            while (true) {
+                boolean isUsernameAda = false;
+                
+                for (int i = 0; i < user[0].length; i++) {
+                    if (newUsername.equals(user[0][i]) || newUsername.equals(user[1][i])) {
+                        isUsernameAda = true;
+                        break;
+                    }
+                }
+        
+                if (isUsernameAda) {
                     System.out.println("Username sudah digunakan. Silahkan pilih username lain!");
-                    return;
+                    System.out.print("Masukkan username baru : ");
+                    newUsername = sclogin.nextLine();
+                } else {
+                    break; 
                 }
             }
-            for (int j = 0; j < 10; j++) {
-                if (newUsername.equals(user[5][j])) {
-                    System.out.println("Username sudah digunakan. Silahkan pilih username lain!");
-                    return;
-                }
-            }
-    
+
             System.out.print("Masukkan password baru : ");
             newPassword = sclogin.nextLine();
-    
-            System.out.print("Apakah anda admin? (ya/tidak): ");
-            String isAdminInput = sclogin.nextLine();
-            isAdmin = isAdminInput.equalsIgnoreCase("ya");
-    
-            if (isAdmin) {
-                adminMenu();
+
+            String isAdminInput;
+            do {
+                System.out.print("Apakah anda admin? (ya/tidak): ");
+                isAdminInput = sclogin.nextLine();
+                
+            } while (!isAdminInput.equalsIgnoreCase("ya") && !isAdminInput.equalsIgnoreCase("tidak"));
+
+            if (isAdminInput.equalsIgnoreCase("ya")) {
+                for (int i = 0; i < user[0].length; i++) {
+                    if (user[0][i] == null) {
+                        user[0][i] = newUsername;
+                        pass[0][i] = newPassword;
+                        nama[0][i] = newNama;
+                        System.out.println("=================================================");
+                        System.out.println("           === Registrasi berhasil! ===");
+                        System.out.println("              Silahkan Login " + newNama + "!");
+                        return;
+                    }
+                }
+            } else if (isAdminInput.equalsIgnoreCase("tidak")) {
+                for (int j = 0; j < user[1].length; j++) {
+                    if (user[1][j] == null) {
+                        user[1][j] = newUsername;
+                        pass[1][j] = newPassword;
+                        nama[1][j] = newNama;
+
+                        System.out.println("=================================================");
+                        System.out.println("            Registrasi berhasil!");
+                        System.out.println("        Silahkan Login " + newNama + " !");
+                        return;
+                    }
+                }
             } else {
-                custMenu();
-            }
-    
-            for (int i = 0; i < 10; i++) {
-                if (user[0][i] == null) {
-                    user[0][i] = newUsername;
-                    pass[0][i] = newPassword;
-                    nama[0][i] = newNama;
-                    System.out.println("Registrasi berhasil!");
-                    break;
-                }
-            }
-    
-            for (int j = 0; j < 10; j++) {
-                if (user[5][j] == null) {
-                    user[5][j] = newUsername;
-                    pass[5][j] = newPassword;
-                    nama[5][j] = newNama;
-    
-                    System.out.println("Registrasi berhasil!");
-                    break;
-                }
+                System.out.println("Masukkan 'ya' atau 'tidak'");
             }
         }
     }
+
     public static void adminMenu() {
         System.out.println("\n=================================================");
         System.out.println("|\t\t  ADMIN MENU \t\t        |");
@@ -280,7 +320,7 @@ public class Booking_Function {
         System.out.println("\t\t Informasi Login \t\t");
         System.out.println("=================================================");
         System.out.println("Username \t: " + username);
-        System.out.println("Nama \t\t: " + nama[5][j]);
+        System.out.println("Nama \t\t: " + nama[1][j]);
         System.out.println("Login pada \t: " + tanggal);
         System.out.println("Waktu login \t: " + waktu);
         System.out.println("=================================================");
