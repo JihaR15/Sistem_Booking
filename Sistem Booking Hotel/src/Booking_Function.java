@@ -26,7 +26,7 @@ public class Booking_Function {
             "(+ Fasilitas Standar)\n-Ruang duduk \n-peralatan elektronik tambahan \n-perlengkapan mandi lengkap",
             "(+ Fasilitas Standar & Deluxe)\n-Ruang tamu besar \t-dapur kecil \n-layanan kamar 24 jam " };
     static int[] hargaKamar = { 50000, 80000, 100000 };
-    static int[] kamarTersedia = { 10, 10, 1 };
+    static int[] kamarTersedia = { 10, 10, 5 };
     static int perMalam = 0, totalHarga = 0, inputstatusCustomer, kamar = -1;
     static double diskon = 0, bayar = 0;
     static String cetakNota, pesanKembali, statusCust;
