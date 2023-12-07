@@ -45,8 +45,11 @@ public class Booking_Function {
     static int bookingCount = 0;
     static int bayarCount;
 
-    static String username, password, namacust;
-    static String customerName;
+    static String username, password, namacust, ulangiPass, newUsername, newPassword;
+    static String customerName, newNama;
+    static boolean regist = true;
+    static boolean isAdmin;
+
 
     public static void main(String[] args) {
         // userAdm = admin dari indeks 0 - 4
@@ -162,6 +165,11 @@ public class Booking_Function {
     }
 
     public static void login() {
+        System.out.println("Apakah sudah mempunyai akun? \njika belum silahkan melakukan registrasi (sudah / belum)");
+        String pilih = sclogin.nextLine();
+        if (pilih.equalsIgnoreCase("belum")) {
+            register();
+        }
         System.out.println("\n=================================================");
         System.out.println("|\t\t     Login \t\t        |");
         System.out.println("=================================================");
@@ -177,9 +185,59 @@ public class Booking_Function {
         System.out.println("\n=================================================");
         System.out.println("|\t\t     Register \t\t        |");
         System.out.println("=================================================");
-
+        while (regist) {
+            System.out.print("Masukkan nama anda     : ");
+            newNama = sclogin.nextLine();
+            System.out.print("Masukkan username baru : ");
+            newUsername = sclogin.nextLine();
+            for (int i = 0; i < 10; i++) {
+                if (newUsername.equals(user[0][i])) {
+                    System.out.println("Username sudah digunakan. Silahkan pilih username lain!");
+                    return;
+                }
+            }
+            for (int j = 0; j < 10; j++) {
+                if (newUsername.equals(user[5][j])) {
+                    System.out.println("Username sudah digunakan. Silahkan pilih username lain!");
+                    return;
+                }
+            }
+    
+            System.out.print("Masukkan password baru : ");
+            newPassword = sclogin.nextLine();
+    
+            System.out.print("Apakah anda admin? (ya/tidak): ");
+            String isAdminInput = sclogin.nextLine();
+            isAdmin = isAdminInput.equalsIgnoreCase("ya");
+    
+            if (isAdmin) {
+                adminMenu();
+            } else {
+                custMenu();
+            }
+    
+            for (int i = 0; i < 10; i++) {
+                if (user[0][i] == null) {
+                    user[0][i] = newUsername;
+                    pass[0][i] = newPassword;
+                    nama[0][i] = newNama;
+                    System.out.println("Registrasi berhasil!");
+                    break;
+                }
+            }
+    
+            for (int j = 0; j < 10; j++) {
+                if (user[5][j] == null) {
+                    user[5][j] = newUsername;
+                    pass[5][j] = newPassword;
+                    nama[5][j] = newNama;
+    
+                    System.out.println("Registrasi berhasil!");
+                    break;
+                }
+            }
+        }
     }
-
     public static void adminMenu() {
         System.out.println("\n=================================================");
         System.out.println("|\t\t  ADMIN MENU \t\t        |");
