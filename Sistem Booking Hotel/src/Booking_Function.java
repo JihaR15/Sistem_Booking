@@ -21,12 +21,11 @@ public class Booking_Function {
     static String[][] nama = new String[2][50];
 
     // array dari kamar
-    static String[] tipeKamar = { "Standard", "Deluxe", "Suite" };
-    static String[] detailKamar = { "-Ranjang \t-kamar mandi \n-TV \t\t-AC \n-telepon",
-            "(+ Fasilitas Standar)\n-Ruang duduk \n-peralatan elektronik tambahan \n-perlengkapan mandi lengkap",
-            "(+ Fasilitas Standar & Deluxe)\n-Ruang tamu besar \t-dapur kecil \n-layanan kamar 24 jam " };
-    static int[] hargaKamar = { 50000, 80000, 100000 };
-    static int[] kamarTersedia = { 10, 10, 5 };
+    static String[] tipeKamar = new String[10];
+    static String[] detailKamar = new String[10];
+    static int[] hargaKamar = new int[10];
+    static int[] kamarTersedia = new int[10];
+
     static int perMalam = 0, totalHarga = 0, inputstatusCustomer, kamar = -1;
     static double diskon = 0, bayar = 0;
     static String cetakNota, pesanKembali, statusCust;
@@ -69,6 +68,24 @@ public class Booking_Function {
 
         nama[1][0] = "Gunawan"; // nama customer
         nama[1][1] = "Wicaksono";
+
+        tipeKamar[0] = "Standard";
+        tipeKamar[1] = "Double";
+        tipeKamar[2] = "Suite";
+
+        detailKamar[0] = "-Ranjang \t-kamar mandi \n-TV \t\t-AC \n-telepon";
+        detailKamar[1] = "(+ Fasilitas Standar)\n-Ruang duduk \n-peralatan elektronik tambahan \n-perlengkapan mandi lengkap";
+        detailKamar[2] = "(+ Fasilitas Standar & Deluxe)\n-Ruang tamu \t-dapur kecil \n-layanan kamar 24 jam ";
+
+        hargaKamar[0] = 50000;
+        hargaKamar[1] = 80000;
+        hargaKamar[2] = 100000;
+
+        kamarTersedia[0] = 10;
+        kamarTersedia[1] = 10;
+        kamarTersedia[2] = 5;
+
+        
 
         while (true) {
             System.out.println("\n=================================================");
@@ -137,9 +154,7 @@ public class Booking_Function {
                                 ketersediaanKamar();
                                 break;
                             case 3:
-                                System.out.println("=================================================");
-                                System.out.println("\t\t  Input Kamar Baru \t\t");
-                                System.out.println("=================================================");
+                                inputKamar();
                                 break;
                             case 4:
                                 pemesananKamar();
@@ -346,20 +361,37 @@ public class Booking_Function {
         System.out.println("\t     Cek Ketersediaan Kamar \t\t");
         System.out.println("=================================================");
         for (int k = 0; k < tipeKamar.length; k++) {
-            System.out
-                    .println("[" + (k + 1) + "] " + tipeKamar[k] + "\t: " + kamarTersedia[k]
-                            + " kamar tersedia");
+            if (tipeKamar[k] != null) {
+                System.out.println("[" + (k + 1) + "] " + tipeKamar[k] + "\t: " + kamarTersedia[k]+ " kamar tersedia");               
+            }
+        }
+        int count = 0;
+        for (int i = 0; i < tipeKamar.length; i++) {
+            if (tipeKamar[i] != null) {
+                count++;
+            }
         }
         System.out.println("=================================================");
         System.out.println("Untuk Melihat Informasi Kamar... (0 untuk kembali)");
         System.out.print("Masukkan nomor kamar yang ingin dilihat : ");
         int kamar = sc.nextInt();
-
-        if (kamar == 0) {
-            return;
+        for (int i = 0; i < tipeKamar.length; i++) {
+            if (kamar == 0) {
+                if (tipeKamar[kamar] != null) {
+                    return;                    
+                }
+            }
         }
+        if (kamar >= count) {
+            System.out.println("Kamar tidak tersedia");
+            
+        }          
+
 
         for (int k = 0; k < tipeKamar.length; k++) {
+            if (tipeKamar[k] == null) {
+                continue;                             
+            }
             if (tipeKamar[k] == tipeKamar[kamar - 1]) {
                 System.out.println("=================================================");
                 System.out.println("                Informasi Kamar  ");
@@ -390,29 +422,85 @@ public class Booking_Function {
     }
 
     public static void inputKamar() {
+        System.out.println("=================================================");
+        System.out.println("\t\t  Input Kamar Baru \t\t");
+        System.out.println("=================================================");
+        System.out.println("\t     **ketik '0' untuk kembali**");
 
+        System.out.print("Tipe Kamar Baru: ");
+        String tipeKamarBaru = sc.next();
+        if (tipeKamarBaru.equalsIgnoreCase("0")) {
+            return;
+        }
+
+        System.out.print("Harga per Malam: ");
+        int hargaKamarBaru = sc.nextInt();
+        if (hargaKamarBaru == 0) {
+            return;
+        }
+
+        System.out.print("Jumlah Kamar Baru: ");
+        int kamarTersediaBaru = sc.nextInt();
+        if (kamarTersediaBaru == 0) {
+            return;
+        }
+
+        System.out.print("Fasilitas Kamar Baru: ");
+        String fasilitasKamarBaru = sc.next();
+        if (fasilitasKamarBaru.equalsIgnoreCase("0")) {
+            return;
+        }
+
+        for (int i = 0; i < tipeKamar.length; i++) {
+            if (tipeKamar[i] == null) {
+                tipeKamar[i] = tipeKamarBaru;
+                hargaKamar[i] = hargaKamarBaru;
+                kamarTersedia[i] = kamarTersediaBaru;
+                detailKamar[i] = fasilitasKamarBaru;
+                break;
+            }
+        }
+        System.out.println("Kamar " + tipeKamarBaru + " telah ditambahkan sebanyak " + kamarTersediaBaru + " kamar.");
+        while (true) {
+            System.out.print("\nApakah anda ingin menginput kamar baru lagi ? (y/t) : ");
+            String kembali = sc.next();
+            if (kembali.equalsIgnoreCase("y")) {
+                inputKamar();
+            } else if (kembali.equalsIgnoreCase("t")) {
+                return;
+            } else {
+                System.out.println("input tidak sesuai");
+            }
+        }
     }
 
     public static void pemesananKamar() {
         System.out.println("=================================================");
         System.out.println("\t\t Pemesanan Kamar \t\t");
         System.out.println("=================================================");
+        int count = 0;
+        for (int i = 0; i < tipeKamar.length; i++) {
+            if (tipeKamar[i] != null) {
+                count++;
+            }
+        }
 
         if (statusBayar == false) {
             System.out.println("Lakukan pembayaran terlebih dahulu untuk pemesanan sebelumnya!!");
             return;
         } else {
             for (int j = 0; j < tipeKamar.length; j++) {
-                System.out.println("[" + (j + 1) + "] " + tipeKamar[j] + " \t= " + "Rp. "
-                        + hargaKamar[j] + " / malam ");
+                if (tipeKamar[j] != null) {
+                    System.out.println("[" + (j + 1) + "] " + tipeKamar[j] + " \t= " + "Rp. "+ hargaKamar[j] + " / malam ");
+                }
             }
+            
             System.out.println("=================================================");
 
-            System.out.print(
-                    "Pilih tipe kamar (1-" + tipeKamar.length + ") (0 untuk kembali):  ");
+            System.out.print("Pilih tipe kamar (1-" + count + ") (0 untuk kembali):  ");
             pilihKamar = sc.nextInt();
 
-            if (pilihKamar >= 1 && pilihKamar <= tipeKamar.length) {
+            if (pilihKamar >= 1 && pilihKamar <= count) {
                 int indexKamar = pilihKamar - 1;
 
                 System.out.print("Masukkan nama Anda    : ");
@@ -496,6 +584,11 @@ public class Booking_Function {
 
                 }
 
+            } else if(pilihKamar == 0) {
+                return;
+            } else {
+                System.out.println("Pilihan tidak valid.");
+                pemesananKamar();
             }
         }
     }
