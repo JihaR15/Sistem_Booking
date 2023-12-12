@@ -568,24 +568,25 @@ public class Booking_Function {
         System.out.println("Tanggal pembuatan laporan : " + date.toString());
     
         if (bookingCount > 0) {
-            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
             System.out.printf("| %-20s | %-15s | %-15s | %-15s | %-15s | %-15s | %-15s |\n",
             "Nama Customer", "Tipe Kamar", "Malam", "Status", "Total Harga", "Diskon", "Bayar");
-            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
             for (int i = 0; i < bookingCount; i++) {
                 bayarBooked[i] = totalHargaBooked[i] - diskonBooked[i];
                 bayarBooked[i] = totalHargaBooked[i] - diskonBooked[i];
-                System.out.printf("| %-20s | %-15s | %-5d | %-15s | %-15d |  %-15s | %-15s |\n",
+                System.out.printf("| %-20s | %-15s | %-15s | %-15s | %-15s | %-15s | %-15s |\n",
                         namaCustomer[i], tipeKamarBooked[i],
                         malamBooking[i], statusCustomerBooked[i], totalHargaBooked[i], diskonBooked[i], bayarBooked[i]);
-                totalPendapatan += bayarBooked[i];
-            }
-            } else {
-            System.out.println("Belum ada data booking untuk bulan ini.");
-            }
-            System.out.println("====================================================================================================================");
-            System.out.printf("| %-41s | %-47s |\n", "Total Pendapatan", "Rp. " + totalPendapatan);
-            System.out.println("====================================================================================================================");
+                        totalPendapatan += bayarBooked[i];
+                    }
+                System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+                } else {
+                    System.out.println("Belum ada data booking untuk bulan ini.");
+                }
+            System.out.println("============================================================");
+            System.out.printf("| %-20s | %-33s |\n", "Total Pendapatan", "Rp. " + totalPendapatan);
+            System.out.println("============================================================\n");
         }
 
         public static String getBulan(){
