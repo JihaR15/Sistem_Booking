@@ -446,8 +446,11 @@ public class Booking_Function {
                         diskon = 0.25 * totalHarga;
                     }
                 }
-                bayar = totalHarga - diskon;
 
+                if (diskon > totalHarga) {
+                    diskon = 0;
+                 }
+                bayar = totalHarga - diskon;
                 System.out.println("Total biaya Pemesanan : " + bayar);
 
                 System.out.print("Apakah anda ingin mencetak nota ? (y/t) : ");
@@ -568,12 +571,12 @@ public class Booking_Function {
         System.out.println("Tanggal pembuatan laporan : " + date.toString());
     
         if (bookingCount > 0) {
+            totalPendapatan = 0;
             System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
             System.out.printf("| %-20s | %-15s | %-15s | %-15s | %-15s | %-15s | %-15s |\n",
             "Nama Customer", "Tipe Kamar", "Malam", "Status", "Total Harga", "Diskon", "Bayar");
             System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
             for (int i = 0; i < bookingCount; i++) {
-                bayarBooked[i] = totalHargaBooked[i] - diskonBooked[i];
                 bayarBooked[i] = totalHargaBooked[i] - diskonBooked[i];
                 System.out.printf("| %-20s | %-15s | %-15s | %-15s | %-15s | %-15s | %-15s |\n",
                         namaCustomer[i], tipeKamarBooked[i],
