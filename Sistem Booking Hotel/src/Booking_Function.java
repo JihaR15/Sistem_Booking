@@ -47,6 +47,7 @@ public class Booking_Function {
 
     static String username, password, namacust, ulangiPass, newUsername, newPassword;
     static String customerName, newNama;
+    static double totalPendapatan = 0;
 
     public static void main(String[] args) {
         // userAdm = admin baris ke 1 (indeks 0)
@@ -152,9 +153,8 @@ public class Booking_Function {
                                 kembali();
                                 break;
                             case 7:
-                                System.out.println("=================================================");
-                                System.out.println("\t\t  Laporan Harian \t\t");
-                                System.out.println("=================================================");
+                                laporan();
+                                kembali();
                                 break;
                             case 8:
                                 System.out.println("=================================================");
@@ -558,6 +558,45 @@ public class Booking_Function {
             bayarCount++;
         }
     }
+
+    public static void laporan() {
+        System.out.println("==================================================================================================================================");
+        System.out.println("\t\t\t  Laporan Bulanan \t\t\t");
+        System.out.println("==================================================================================================================================");;  
+        System.out.println("Bulan   : " + getBulan()); 
+        System.out.println("Tahun   : " + getTahun());
+        System.out.println("Tanggal pembuatan laporan : " + date.toString());
+    
+        if (bookingCount > 0) {
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.printf("| %-20s | %-15s | %-15s | %-15s | %-15s | %-15s | %-15s |\n",
+            "Nama Customer", "Tipe Kamar", "Malam", "Status", "Total Harga", "Diskon", "Bayar");
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------");
+            for (int i = 0; i < bookingCount; i++) {
+                bayarBooked[i] = totalHargaBooked[i] - diskonBooked[i];
+                bayarBooked[i] = totalHargaBooked[i] - diskonBooked[i];
+                System.out.printf("| %-20s | %-15s | %-5d | %-15s | %-15d |  %-15s | %-15s |\n",
+                        namaCustomer[i], tipeKamarBooked[i],
+                        malamBooking[i], statusCustomerBooked[i], totalHargaBooked[i], diskonBooked[i], bayarBooked[i]);
+                totalPendapatan += bayarBooked[i];
+            }
+            } else {
+            System.out.println("Belum ada data booking untuk bulan ini.");
+            }
+            System.out.println("====================================================================================================================");
+            System.out.printf("| %-41s | %-47s |\n", "Total Pendapatan", "Rp. " + totalPendapatan);
+            System.out.println("====================================================================================================================");
+        }
+
+        public static String getBulan(){
+            String[] namaBulan = {"Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
+                              "Oktober", "November", "Desember"};
+            return namaBulan[date.getMonth()] ;
+        }
+        
+        static int getTahun() {
+            return Integer.parseInt(tanggal.substring(6));
+        }
 
     public static void kembali() {
         while (true) {
