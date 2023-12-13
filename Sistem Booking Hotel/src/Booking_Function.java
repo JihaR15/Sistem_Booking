@@ -1,10 +1,8 @@
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
-import java.util.Calendar;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
-import java.text.ParseException;
 
 
 public class Booking_Function {
@@ -41,6 +39,7 @@ public class Booking_Function {
 
     // buat batas booking = history booking
     static String[] namaCustomer = new String[50];
+    static String[] usernameKonfirmasiBooked = new String[50];
     static String[] tipeKamarBooked = new String[50];
     static int[] malamBooking = new int[50];
     static String[] statusCustomerBooked = new String[50];
@@ -57,6 +56,8 @@ public class Booking_Function {
     static String username, password, namacust, ulangiPass, newUsername, newPassword;
     static String customerName, newNama;
     static double totalPendapatan = 0;
+
+    static String currentLoggedUser = "";
 
     public static void main(String[] args) {
         // userAdm = admin baris ke 1 (indeks 0)
@@ -99,7 +100,7 @@ public class Booking_Function {
 
         while (true) {
             System.out.println("\n=================================================");
-            System.out.println("|\t    Selamat Datang Di Hotel 1C   \t|");
+            System.out.println("|\t   Selamat Datang Di Hotel 1C   \t|");
             System.out.println("=================================================");
             System.out.println("| \t\t (1) Login \t\t\t|");
             System.out.println("| \t\t (2) Register\t\t\t|");
@@ -141,6 +142,7 @@ public class Booking_Function {
         for (int i = 0; i < user[0].length; i++) {
             if (username.equals(user[0][i])) {
                 if (password.equals(pass[0][i])) {
+                    currentLoggedUser = username;
                     System.out.println("-------------------------------------------------");
                     System.out.println("    ------- Selamat Datang, " + username + "! -------");
                     while (true) {
@@ -153,7 +155,7 @@ public class Booking_Function {
                         System.out.println("[4] Pemesanan Kamar\t[9] Logout");
                         System.out.println("[5] Pembayaran\t\t[10] Tutup Program");
                         System.out.println("=================================================");
-                        System.out.print("Silahkan pilih menu (1-8)     : ");
+                        System.out.print("Silahkan pilih menu (1-10)     : ");
                         menu = sc.nextInt();
                         switch (menu) {
                             case 1:
@@ -218,6 +220,7 @@ public class Booking_Function {
         for (int j = 0; j < user[1].length; j++) {
             if ((username.equals(user[1][j]))) {
                 if (password.equals(pass[1][j])) {
+                    currentLoggedUser = username;
                     System.out.println("------- Selamat Datang, " + username + "! -------");
                     while (true) {
                         System.out.println("\n=================================================");
@@ -437,19 +440,19 @@ public class Booking_Function {
         System.out.println("=================================================");
         System.out.println("\t     **ketik '0' untuk kembali**");
 
-        System.out.print("Tipe Kamar Baru: ");
+        System.out.print("Tipe Kamar Baru   : ");
         String tipeKamarBaru = sc.next();
         if (tipeKamarBaru.equalsIgnoreCase("0")) {
             return;
         }
 
-        System.out.print("Harga per Malam: ");
+        System.out.print("Harga per Malam   : ");
         int hargaKamarBaru = sc.nextInt();
         if (hargaKamarBaru == 0) {
             return;
         }
 
-        System.out.print("Jumlah Kamar Baru: ");
+        System.out.print("Jumlah Kamar Baru : ");
         int kamarTersediaBaru = sc.nextInt();
         if (kamarTersediaBaru == 0) {
             return;
@@ -495,10 +498,6 @@ public class Booking_Function {
             }
         }
 
-        if (statusBayar == false) {
-            System.out.println("Lakukan pembayaran terlebih dahulu untuk pemesanan sebelumnya!!");
-            return;
-        } else {
             for (int j = 0; j < tipeKamar.length; j++) {
                 if (tipeKamar[j] != null) {
                     System.out.println("[" + (j + 1) + "] " + tipeKamar[j] + " \t= " + "Rp. "+ hargaKamar[j] + " / malam ");
@@ -552,77 +551,99 @@ public class Booking_Function {
                 if (diskon > totalHarga) {
                     diskon = 0;
                  }
-                bayar = totalHarga - diskon;
-                System.out.println("Total biaya Pemesanan : " + bayar);
-                System.out.print("Tanggal Check-In (dd-MM-yyyy): ");
-                String checkInDate = sclogin.nextLine();
 
-                LocalDate checkIn = LocalDate.parse(checkInDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                System.out.println("(Untuk Konfirmasi..)");
+                System.out.println("Silahkan masukkan username anda :");
+                String usernameKonfirmasi = sclogin.nextLine();
 
-                if (checkIn.isBefore(today)) {
-                    System.out.println("Maaf, Check-In hanya dapat dilakukan pada hari ini atau setelahnya.");
+                if (usernameKonfirmasi.equals(currentLoggedUser)) {
+
+                    bayar = totalHarga - diskon;
+                    System.out.println("Total biaya Pemesanan : " + bayar);
+                    System.out.print("Tanggal Check-In (dd-MM-yyyy): ");
+                    String checkInDate = sclogin.nextLine();
+
+                    LocalDate checkIn = LocalDate.parse(checkInDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+                    if (checkIn.isBefore(today)) {
+                        System.out.println("Maaf, Check-In hanya dapat dilakukan pada hari ini atau setelahnya.");
+                        return;
+                    }
+
+                    // check-out
+                    LocalDate checkOutLocalDate = LocalDate.parse(checkInDate, DateTimeFormatter.ofPattern("dd-MM-yyyy")).plusDays(perMalam);
+                    // Konversi ke format yang diinginkan (dd-MM-yyyy)
+                    checkOut = checkOutLocalDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+                    System.out.print("Apakah anda ingin mencetak nota ? (y/t) : ");
+                    cetakNota = sc.nextLine();
+
+                    if (cetakNota.equalsIgnoreCase("y")) {
+                        System.out.println("\n======================= NOTA PEMESANAN =======================");
+                        System.out.println("Tanggal Pemesanan               : " + date.toString());
+                        System.out.println("Username                        : " + usernameKonfirmasi);
+                        System.out.println("Nama Anda                       : " + customerName);
+                        System.out.println("Tipe Kamar yang Anda Pilih      : " + tipeKamar[indexKamar]);
+                        System.out.println("Lama Menginap                   : " + perMalam);
+                        System.out.println("Status Pelanggan                : " + statusCust);
+                        System.out.println("Tanggal Check-In                : " + checkInDate);
+                        System.out.println("Tanggal Check-Out               : " + checkOut);
+                        System.out.println("Total Harga                     : " + totalHarga);
+                        System.out.println("Diskon Anda Menginap            : " + diskon);
+                        System.out.println("Anda harus membayar             : " + bayar);
+                        System.out.println("===============================================================");
+                    }
+
+                    System.out.print("Apakah Anda ingin mengkonfirmasi reservasi ini? (ya/tidak): ");
+                    String pilKonfirmasi = sc.nextLine();
+                    if (pilKonfirmasi.equalsIgnoreCase("ya")) {
+                        statusBayar = false;
+                        System.out.println("Reservasi telah dikonfirmasi.");
+                        System.out.println("Terima kasih telah reservasi di hotel kami!");
+                        System.out.println("Silahkan membayar di menu pembayaran.");
+                        kamarTersedia[indexKamar]--;
+
+                        // Simpan info pemesanan
+                        namaCustomer[bookingCount] = customerName;
+                        usernameKonfirmasiBooked[bookingCount] = usernameKonfirmasi;
+                        tipeKamarBooked[bookingCount] = tipeKamar[indexKamar];
+                        malamBooking[bookingCount] = perMalam;
+                        statusCustomerBooked[bookingCount] = statusCust;
+                        totalHargaBooked[bookingCount] = totalHarga;
+                        diskonBooked[bookingCount] = diskon;
+                        bayarBooked[bookingCount] = bayar;
+                        checkInBooked[bookingCount] = checkInDate;
+                        checkOutBooked[bookingCount] = checkOut;
+
+                        statusBayarBooked[bookingCount] = statusBayar;
+                        bookingCount++;
+
+                        System.out.println("Apakah anda ingin memesan kembali ? (y/t) : ");
+                        String kembali = sc.nextLine();
+                        if (kembali.equalsIgnoreCase("y")) {
+                            pemesananKamar();
+                        } else if (kembali.equalsIgnoreCase("t")) {
+                            return;
+                        } else {
+                            System.out.println("input tidak sesuai");
+                        }
+                    } else if (pilKonfirmasi.equalsIgnoreCase("tidak")) {
+                        System.out.println("Reservasi tidak dikonfirmasi.");
+                    } else {
+                        System.out.println("Pilihan tidak valid.");
+
+                    }
+
+                } else if (pilihKamar == 0) {
                     return;
-                }
-
-                //check-out
-                LocalDate checkOutLocalDate = LocalDate.parse(checkInDate, DateTimeFormatter.ofPattern("dd-MM-yyyy")).plusDays(perMalam);
-                // Konversi ke format yang diinginkan (dd-MM-yyyy)
-                checkOut = checkOutLocalDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-
-                System.out.print("Apakah anda ingin mencetak nota ? (y/t) : ");
-                cetakNota = sc.nextLine();
-
-                if (cetakNota.equalsIgnoreCase("y")) {
-                    System.out.println("\n======================= NOTA PEMESANAN =======================");
-                    System.out.println("Tanggal Pemesanan               : " + date.toString());
-                    System.out.println("Nama Anda                       : " + customerName);
-                    System.out.println("Tipe Kamar yang Anda Pilih      : " + tipeKamar[indexKamar]);
-                    System.out.println("Lama Menginap                   : " + perMalam);
-                    System.out.println("Status Pelanggan                : " + statusCust);
-                    System.out.println("Tanggal Check-In                : " + checkInDate);
-                    System.out.println("Tanggal Check-Out               : " + checkOut);
-                    System.out.println("Total Harga                     : " + totalHarga);
-                    System.out.println("Diskon Anda Menginap            : " + diskon);
-                    System.out.println("Anda harus membayar             : " + bayar);
-                    System.out.println("===============================================================");
-                }
-                System.out.print("Apakah Anda ingin mengkonfirmasi reservasi ini? (ya/tidak): ");
-                String pilKonfirmasi = sc.nextLine();
-                if (pilKonfirmasi.equalsIgnoreCase("ya")) {
-                    statusBayar = false;
-                    System.out.println("Reservasi telah dikonfirmasi.");
-                    System.out.println("Terima kasih telah reservasi di hotel kami!");
-                    System.out.println("Silahkan membayar di menu pembayaran.");
-                    kamarTersedia[indexKamar]--;
-
-                    // Simpan info pemesanan
-                    namaCustomer[bookingCount] = customerName;
-                    tipeKamarBooked[bookingCount] = tipeKamar[indexKamar];
-                    malamBooking[bookingCount] = perMalam;
-                    statusCustomerBooked[bookingCount] = statusCust;
-                    totalHargaBooked[bookingCount] = totalHarga;
-                    diskonBooked[bookingCount] = diskon;
-                    bayarBooked[bookingCount] = bayar;
-                    checkInBooked[bookingCount] = checkInDate;
-                    checkOutBooked[bookingCount] = checkOut;
-
-                    statusBayarBooked[bookingCount] = statusBayar;
-                    bookingCount++;
-
-                } else if (pilKonfirmasi.equalsIgnoreCase("tidak")) {
-                    System.out.println("Reservasi tidak dikonfirmasi.");
                 } else {
-                    System.out.println("Pilihan tidak valid.");
-
+                    System.out.println("Username tidak sesuai.");
+                    pemesananKamar();
                 }
 
-            } else if(pilihKamar == 0) {
-                return;
-            } else {
-                System.out.println("Pilihan tidak valid.");
-                pemesananKamar();
             }
-        }
+
+        
     }
 
     public static void historiPemesanan() {
@@ -635,19 +656,22 @@ public class Booking_Function {
 
         }
         for (int j = 0; j < bookingCount; j++) {
-            System.out.println("No.                 : " + (j + 1));
-            System.out.println("Nama                : " + namaCustomer[j]);
-            System.out.println("Tipe Kamar          : " + tipeKamarBooked[j]);
-            System.out.println("Malam menginap      : " + malamBooking[j]);
-            System.out.println("waktu pemesanan     : " + waktu + " pada tgl " + tanggal);
-            System.out.println("Status pelanggan    : " + statusCustomerBooked[j]);
-            System.out.println("Tanggal Check-In    : " + checkInBooked[j]);
-            System.out.println("Tanggal Check-Out   : " + checkOutBooked[j]);
-            System.out.println("Total Harga         : " + totalHargaBooked[j]);
-            System.out.println("Diskon              : " + diskonBooked[j]);
-            System.out.println("Bayar               : " + (totalHargaBooked[j] - diskonBooked[j]));
-            System.out.println("Status pembayaran   : " + statusBayarBooked[j]);
-            System.out.println("=================================================");
+            if (usernameKonfirmasiBooked[j].equals(currentLoggedUser)) {
+                System.out.println("No.                 : " + (j + 1));
+                System.out.println("Username            : " + usernameKonfirmasiBooked[j]);
+                System.out.println("Nama                : " + namaCustomer[j]);
+                System.out.println("Tipe Kamar          : " + tipeKamarBooked[j]);
+                System.out.println("Malam menginap      : " + malamBooking[j]);
+                System.out.println("waktu pemesanan     : " + waktu + " pada tgl " + tanggal);
+                System.out.println("Status pelanggan    : " + statusCustomerBooked[j]);
+                System.out.println("Tanggal Check-In    : " + checkInBooked[j]);
+                System.out.println("Tanggal Check-Out   : " + checkOutBooked[j]);
+                System.out.println("Total Harga         : " + totalHargaBooked[j]);
+                System.out.println("Diskon              : " + diskonBooked[j]);
+                System.out.println("Bayar               : " + (totalHargaBooked[j] - diskonBooked[j]));
+                System.out.println("Status pembayaran   : " + statusBayarBooked[j]);
+                System.out.println("=================================================");              
+            }
 
         }
 
@@ -663,36 +687,47 @@ public class Booking_Function {
         }
 
         for (int j = bayarCount; j < bookingCount; j++) {
-            if (bayarBooked[j] == 0) {
-                System.out.println("Belum ada pemesanan..");
-                break;
-            }
-            System.out.println("Anda harus membayar : " + bayarBooked[j]);
+            if (usernameKonfirmasiBooked[j].equals(currentLoggedUser)) {
 
-            while (true) {
-                System.out.println("Masukkan Nominal yang ingin dibayarkan : ");
-                double bayarTunai = sc.nextInt();
-
-                if (bayarTunai >= bayarBooked[j]) {
-                    double kembalian = bayarTunai - bayarBooked[j];
-                    System.out.println("Kembalian : " + kembalian);
-                    System.out.println("Terima kasih telah membayar!!");
-                    statusBayarBooked[j] = true;
-                    statusBayar = true;
-                    bayarBooked[j] = 0;
+                if (bayarBooked[j] == 0) {
+                    System.out.println("Belum ada pemesanan..");
                     break;
-                } else {
-                    System.out.println("Uang yang anda masukkan kurang");
                 }
+                System.out.println("Untuk Pesanan Atas nama : " + namaCustomer[j]);
+                System.out.println("Anda harus membayar : " + bayarBooked[j]);
+    
+                while (true) {
+                    System.out.println("Masukkan Nominal yang ingin dibayarkan : ");
+                    double bayarTunai = sc.nextInt();
+    
+                    if (bayarTunai >= bayarBooked[j]) {
+                        double kembalian = bayarTunai - bayarBooked[j];
+                        System.out.println("Kembalian : " + kembalian);
+                        System.out.println("Terima kasih telah membayar!!");
+                        statusBayarBooked[j] = true;
+                        statusBayar = true;
+                        bayarBooked[j] = 0;
+                        break;
+                    } else {
+                        System.out.println("Uang yang anda masukkan kurang");
+                        System.out.println("Apakah anda ingin membayar ulang? (y/t)");
+                        String ulang = sc.next();
+                        if (ulang.equalsIgnoreCase("y")) {
+                            continue;
+                        } else if (ulang.equalsIgnoreCase("t")) {
+                            return;
+                        }
+                    }
+                }
+                bayarCount++;
             }
-            bayarCount++;
         }
     }
 
     public static void laporan() {
-        System.out.println("==================================================================================================================================");
-        System.out.println("\t\t\t  Laporan Bulanan \t\t\t");
-        System.out.println("==================================================================================================================================");;  
+        System.out.println("==================================================================================================================================================");
+        System.out.println("\t\t\t\t\t\t      Laporan Bulanan \t\t\t");
+        System.out.println("==================================================================================================================================================");;  
         System.out.println("Bulan   : " + getBulan()); 
         System.out.println("Tahun   : " + getTahun());
         System.out.println("Tanggal pembuatan laporan : " + date.toString());
@@ -708,7 +743,10 @@ public class Booking_Function {
                 System.out.printf("| %-15s | %-10s | %-7s | %-10s | %-12s | %-10s | %-10s | %-15s | %-15s | %-15s |\n",
                         namaCustomer[i], tipeKamarBooked[i],
                         malamBooking[i], statusCustomerBooked[i], totalHargaBooked[i], diskonBooked[i], bayarBooked[i], checkInBooked[i], checkOutBooked[i], statusBayarBooked[i]);
-                        totalPendapatan += bayarBooked[i];
+                        if (statusBayarBooked[i] == true) {
+                            totalPendapatan += bayarBooked[i];    
+                        }
+
                     }
                 System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------------");
                 } else {
