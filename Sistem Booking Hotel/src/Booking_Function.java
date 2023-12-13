@@ -1,6 +1,11 @@
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
+import java.util.Calendar;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+import java.text.ParseException;
+
 
 public class Booking_Function {
 
@@ -14,6 +19,8 @@ public class Booking_Function {
     static String tanggal = dateFormat.format(date);
     static SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss"); // buat waktu
     static String waktu = timeFormat.format(date);
+    static Date checkIn;
+    static Date checkOut;
 
     // user, pw sama nama
     static String[][] user = new String[2][50];
@@ -44,7 +51,7 @@ public class Booking_Function {
     static int bookingCount = 0;
     static int bayarCount;
 
-    static String username, password, namacust, ulangiPass, newUsername, newPassword;
+    static String username, password, namacust, ulangiPass, newUsername, newPassword,  checkInDate, checkOutDate;
     static String customerName, newNama;
     static double totalPendapatan = 0;
 
@@ -540,6 +547,25 @@ public class Booking_Function {
                  }
                 bayar = totalHarga - diskon;
                 System.out.println("Total biaya Pemesanan : " + bayar);
+                System.out.print("Tanggal Check-In (dd-MM-yyyy): ");
+                String checkInDate = sclogin.nextLine();
+                try {
+                    checkIn = dateFormat.parse(checkInDate);
+                    Date today = new Date();
+                    if (!checkIn.before(date)) {
+                        System.out.println("Maaf, Check-In hanya dapat dilakukan pada hari ini atau setelahnya.");
+                        return;
+                    
+                }
+                } catch (ParseException e) {
+                    System.out.println("Format tanggal tidak valid. Gunakan format dd-MM-yyyy.");
+                    return;
+                }
+
+                //check-out
+                LocalDate checkOutLocalDate = LocalDate.parse(checkInDate, DateTimeFormatter.ofPattern("dd-MM-yyyy")).plusDays(perMalam);
+                // Konversi ke format yang diinginkan (dd-MM-yyyy)
+                String checkOut = checkOutLocalDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
                 System.out.print("Apakah anda ingin mencetak nota ? (y/t) : ");
                 cetakNota = sc.nextLine();
@@ -551,6 +577,8 @@ public class Booking_Function {
                     System.out.println("Tipe Kamar yang Anda Pilih      : " + tipeKamar[indexKamar]);
                     System.out.println("Lama Menginap                   : " + perMalam);
                     System.out.println("Status Pelanggan                : " + statusCust);
+                    System.out.println("Tanggal Check-In                : " + dateFormat.format(checkIn));
+                    System.out.println("Tanggal Check-Out               : " + checkOut);
                     System.out.println("Total Harga                     : " + totalHarga);
                     System.out.println("Diskon Anda Menginap            : " + diskon);
                     System.out.println("Anda harus membayar             : " + bayar);
