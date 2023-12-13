@@ -20,7 +20,7 @@ public class Booking_Function {
     static SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss"); // buat waktu
     static String waktu = timeFormat.format(date);
     static Date checkIn;
-    static Date checkOut;
+    static String checkOut;
 
     // user, pw sama nama
     static String[][] user = new String[2][50];
@@ -37,6 +37,7 @@ public class Booking_Function {
     static double diskon = 0, bayar = 0;
     static String cetakNota, pesanKembali, statusCust;
     static int pilihKamar, menu;
+    static LocalDate today = LocalDate.now();
 
     // buat batas booking = history booking
     static String[] namaCustomer = new String[50];
@@ -47,11 +48,13 @@ public class Booking_Function {
     static double[] diskonBooked = new double[50];
     static double[] bayarBooked = new double[50];
     static Boolean[] statusBayarBooked = new Boolean[50];
+    static String[] checkInBooked = new String[50];
+    static String[] checkOutBooked = new String[50];
     static Boolean statusBayar = true;
     static int bookingCount = 0;
     static int bayarCount;
 
-    static String username, password, namacust, ulangiPass, newUsername, newPassword,  checkInDate, checkOutDate;
+    static String username, password, namacust, ulangiPass, newUsername, newPassword;
     static String customerName, newNama;
     static double totalPendapatan = 0;
 
@@ -531,6 +534,8 @@ public class Booking_Function {
                         diskon = 0.20 * totalHarga;
                     } else if (perMalam >= 7) {
                         diskon = 0.50 * totalHarga;
+                    } else {
+                        diskon = 0;
                     }
 
                 } else if (inputstatusCustomer == 2) {
@@ -539,6 +544,8 @@ public class Booking_Function {
                         diskon = 0.10 * totalHarga;
                     } else if (perMalam >= 7) {
                         diskon = 0.25 * totalHarga;
+                    } else {
+                        diskon = 0;
                     }
                 }
 
@@ -549,23 +556,18 @@ public class Booking_Function {
                 System.out.println("Total biaya Pemesanan : " + bayar);
                 System.out.print("Tanggal Check-In (dd-MM-yyyy): ");
                 String checkInDate = sclogin.nextLine();
-                try {
-                    checkIn = dateFormat.parse(checkInDate);
-                    Date today = new Date();
-                    if (!checkIn.before(date)) {
-                        System.out.println("Maaf, Check-In hanya dapat dilakukan pada hari ini atau setelahnya.");
-                        return;
-                    
-                }
-                } catch (ParseException e) {
-                    System.out.println("Format tanggal tidak valid. Gunakan format dd-MM-yyyy.");
+
+                LocalDate checkIn = LocalDate.parse(checkInDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+                if (checkIn.isBefore(today)) {
+                    System.out.println("Maaf, Check-In hanya dapat dilakukan pada hari ini atau setelahnya.");
                     return;
                 }
 
                 //check-out
                 LocalDate checkOutLocalDate = LocalDate.parse(checkInDate, DateTimeFormatter.ofPattern("dd-MM-yyyy")).plusDays(perMalam);
                 // Konversi ke format yang diinginkan (dd-MM-yyyy)
-                String checkOut = checkOutLocalDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                checkOut = checkOutLocalDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
                 System.out.print("Apakah anda ingin mencetak nota ? (y/t) : ");
                 cetakNota = sc.nextLine();
@@ -577,7 +579,7 @@ public class Booking_Function {
                     System.out.println("Tipe Kamar yang Anda Pilih      : " + tipeKamar[indexKamar]);
                     System.out.println("Lama Menginap                   : " + perMalam);
                     System.out.println("Status Pelanggan                : " + statusCust);
-                    System.out.println("Tanggal Check-In                : " + dateFormat.format(checkIn));
+                    System.out.println("Tanggal Check-In                : " + checkInDate);
                     System.out.println("Tanggal Check-Out               : " + checkOut);
                     System.out.println("Total Harga                     : " + totalHarga);
                     System.out.println("Diskon Anda Menginap            : " + diskon);
@@ -601,6 +603,8 @@ public class Booking_Function {
                     totalHargaBooked[bookingCount] = totalHarga;
                     diskonBooked[bookingCount] = diskon;
                     bayarBooked[bookingCount] = bayar;
+                    checkInBooked[bookingCount] = checkInDate;
+                    checkOutBooked[bookingCount] = checkOut;
 
                     statusBayarBooked[bookingCount] = statusBayar;
                     bookingCount++;
@@ -637,6 +641,8 @@ public class Booking_Function {
             System.out.println("Malam menginap      : " + malamBooking[j]);
             System.out.println("waktu pemesanan     : " + waktu + " pada tgl " + tanggal);
             System.out.println("Status pelanggan    : " + statusCustomerBooked[j]);
+            System.out.println("Tanggal Check-In    : " + checkInBooked[j]);
+            System.out.println("Tanggal Check-Out   : " + checkOutBooked[j]);
             System.out.println("Total Harga         : " + totalHargaBooked[j]);
             System.out.println("Diskon              : " + diskonBooked[j]);
             System.out.println("Bayar               : " + (totalHargaBooked[j] - diskonBooked[j]));
@@ -693,18 +699,18 @@ public class Booking_Function {
     
         if (bookingCount > 0) {
             totalPendapatan = 0;
-            System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.printf("| %-20s | %-15s | %-15s | %-15s | %-15s | %-15s | %-15s |\n",
-            "Nama Customer", "Tipe Kamar", "Malam", "Status", "Total Harga", "Diskon", "Bayar");
-            System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.printf("| %-15s | %-10s | %-7s | %-10s | %-12s | %-10s | %-10s | %-15s | %-15s | %-15s |\n",
+            "Nama Customer", "Tipe Kamar", "Malam", "Status", "Total Harga", "Diskon", "Bayar", "Check In", "Check Out", "Status Bayar");
+            System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------------");
             for (int i = 0; i < bookingCount; i++) {
                 bayarBooked[i] = totalHargaBooked[i] - diskonBooked[i];
-                System.out.printf("| %-20s | %-15s | %-15s | %-15s | %-15s | %-15s | %-15s |\n",
+                System.out.printf("| %-15s | %-10s | %-7s | %-10s | %-12s | %-10s | %-10s | %-15s | %-15s | %-15s |\n",
                         namaCustomer[i], tipeKamarBooked[i],
-                        malamBooking[i], statusCustomerBooked[i], totalHargaBooked[i], diskonBooked[i], bayarBooked[i]);
+                        malamBooking[i], statusCustomerBooked[i], totalHargaBooked[i], diskonBooked[i], bayarBooked[i], checkInBooked[i], checkOutBooked[i], statusBayarBooked[i]);
                         totalPendapatan += bayarBooked[i];
                     }
-                System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------------");
                 } else {
                     System.out.println("Belum ada data booking untuk bulan ini.");
                 }
